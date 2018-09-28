@@ -69,6 +69,7 @@ variables.h
     roc_curve_optimization_threshold.h 
     selective_pruning.h
     multiObjective.h
+    adam.h
 )
 
 set(OPENNN_SRCS
@@ -135,6 +136,7 @@ variables.cpp
     roc_curve_optimization_threshold.cpp 
     selective_pruning.cpp
     multiObjective.cpp
+    adam.cpp
 )
 
 add_library(opennn ${OPENNN_SRCS})
