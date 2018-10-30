@@ -3490,7 +3490,7 @@ Matrix<double> NeuralNetwork::calculate_output_data(const Matrix<double>& input_
 
     const size_t columns_number = input_data.get_columns_number();
 
-    if(columns_number != inputs_number)
+    if(columns_number != get_inputs_number())
     {
         ostringstream buffer;
 

@@ -7882,22 +7882,22 @@ Vector<double> SparseMatrix<T>::dot(const Vector<double>&) const
 {
     // Control sentence(if debug)
 
-#ifdef __OPENNN_DEBUG__
-
-    const size_t size = vector.size();
-
-    if(size != columns_number)
-    {
-        ostringstream buffer;
-
-        buffer << "OpenNN Exception: SparseMatrix Template.\n"
-               << "Vector<T> dot(const Vector<T>&) const method.\n"
-               << "Vector size must be equal to sparse matrix number of columns.\n";
-
-        throw logic_error(buffer.str());
-    }
-
-#endif
+//#ifdef __OPENNN_DEBUG__
+//
+//    const size_t size = vector.size();
+//
+//    if(size != columns_number)
+//    {
+//        ostringstream buffer;
+//
+//        buffer << "OpenNN Exception: SparseMatrix Template.\n"
+//               << "Vector<T> dot(const Vector<T>&) const method.\n"
+//               << "Vector size must be equal to sparse matrix number of columns.\n";
+//
+//        throw logic_error(buffer.str());
+//    }
+//
+//#endif
 
     // Calculate SparseMatrix-vector poduct
 
