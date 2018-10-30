@@ -127,7 +127,8 @@ HEADERS += \
     text_analytics.h \
     k_nearest_neighbors.h \
     tinyxml2.h \
-    correlation_analysis.h
+    correlation_analysis.h \
+    adam.h
 
 SOURCES += \
     variables.cpp \
@@ -203,7 +204,8 @@ SOURCES += \
     text_analytics.cpp \
     k_nearest_neighbors.cpp \
     tinyxml2.cpp \
-    correlation_analysis.cpp
+    correlation_analysis.cpp \
+    adam.cpp
 
 # MPI libraries
 #DEFINES += __OPENNN_MPI__
