@@ -295,7 +295,6 @@ include(../cuda.pri)
 
 isEmpty(PREFIX) {PREFIX=/usr/local}
 
-message($$HEADERS)
 headers.files=$$HEADERS
 headers.path=$$PREFIX/include/opennn
 INSTALLS += headers
