@@ -3,37 +3,37 @@ TEMPLATE = lib
   
 # TODO port OpenNN to standalone eigen library
 HEADERS = ../eigen/Cholesky  \
-    ../eigen/IterativeLinearSolvers \
-    ../eigen/QtAlignedMalloc \
-    ../eigen/StdDeque \
-    ../eigen/CholmodSupport \
-    ../eigen/Jacobi \
-    ../eigen/Sparse \
-    ../eigen/StdList \
-    ../eigen/Core \
-    ../eigen/LU \
-    ../eigen/SparseCholesky \
-    ../eigen/StdVector \
-    ../eigen/Dense \
-    ../eigen/MetisSupport \
-    ../eigen/SparseCore \
-    ../eigen/SuperLUSupport \
-    ../eigen/Eigen \
-    ../eigen/OrderingMethods \
-    ../eigen/SparseLU \
-    ../eigen/SVD \
-    ../eigen/Eigenvalues \
-    ../eigen/PardisoSupport \
-    ../eigen/SparseQR \
-    ../eigen/UmfPackSupport \
-    ../eigen/Geometry \
-    ../eigen/PaStiXSupport \
-    ../eigen/SPQRSupport \
-    ../eigen/Householder \
-    ../eigen/QR
+    IterativeLinearSolvers \
+    QtAlignedMalloc \
+    StdDeque \
+    CholmodSupport \
+    Jacobi \
+    Sparse \
+    StdList \
+    Core \
+    LU \
+    SparseCholesky \
+    StdVector \
+    Dense \
+    MetisSupport \
+    SparseCore \
+    SuperLUSupport \
+    Eigen \
+    OrderingMethods \
+    SparseLU \
+    SVD \
+    Eigenvalues \
+    PardisoSupport \
+    SparseQR \
+    UmfPackSupport \
+    Geometry \
+    PaStiXSupport \
+    SPQRSupport \
+    Householder \
+    QR
     
 isEmpty(PREFIX) {PREFIX=/usr/local}
-headers.files=$$HEADERS
+headers.files=$$HEADERS src
 headers.path=$$PREFIX/include/eigen
 INSTALLS += headers
 
