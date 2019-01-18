@@ -14,6 +14,7 @@
 // Open NN includes
 
 #include "adam.h"
+#include "training_algorithm.h"
 #include <memory>
 using namespace std;
 
@@ -262,7 +263,7 @@ Adam::AdamResults* Adam::perform_training()
    // Neural network stuff
    NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
 
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();
 
    Vector<double> parameters(parameters_number);
    double parameters_norm;
@@ -283,8 +284,6 @@ Adam::AdamResults* Adam::perform_training()
 
    Vector<double> gradient(parameters_number);
    double gradient_norm;
-
-   LossIndex::FirstOrderloss first_order_loss;
 
    // Training algorithm stuff 
 
@@ -309,9 +308,9 @@ Adam::AdamResults* Adam::perform_training()
    {
       // Neural network stuff
 
-      parameters = neural_network_pointer->arrange_parameters();
+      parameters = neural_network_pointer->get_parameters();
 
-      parameters_norm = parameters.calculate_norm();
+      parameters_norm = parameters.calculate_L2_norm();
 
 //      if(display && parameters_norm >= warning_parameters_norm)
 //      {
@@ -320,13 +319,13 @@ Adam::AdamResults* Adam::perform_training()
 
       // Loss index stuff
 
-      loss = loss_index_pointer->calculate_loss();
+      loss = loss_index_pointer->calculate_training_loss();
 
-      gradient = loss_index_pointer->calculate_gradient();
+      gradient = loss_index_pointer->calculate_training_loss_gradient();
 
-      gradient_norm = gradient.calculate_norm();
+      gradient_norm = gradient.calculate_L2_norm();
 
-      selection_loss = loss_index_pointer->calculate_selection_loss();
+      selection_loss = loss_index_pointer->calculate_selection_error();
 
       if(selection_loss > old_selection_loss)
       {
@@ -335,7 +334,7 @@ Adam::AdamResults* Adam::perform_training()
       else if(selection_loss < minimum_selection_error)
       {
           minimum_selection_error = selection_loss;
-          minimum_selection_error_parameters = neural_network_pointer->arrange_parameters();
+          minimum_selection_error_parameters = neural_network_pointer->get_parameters();
       }
 
       // Training algorithm 
@@ -346,7 +345,7 @@ Adam::AdamResults* Adam::perform_training()
       double sCorr=1.0/(1-pow(beta2,iteration+1));
       const double eps=1e-8; // to avoid divide by zero
       parameters_increment = learningRate * vdw*vCorr / (sqrt(sdw*sCorr)+eps);
-      parameters_increment_norm = parameters_increment.calculate_norm();
+      parameters_increment_norm = parameters_increment.calculate_L2_norm();
       
       // Elapsed time
 
@@ -424,7 +423,7 @@ Adam::AdamResults* Adam::perform_training()
 
          stop_training = true;
 
-         results_pointer->stopping_condition = MinimumPerformanceIncrease;
+         results_pointer->stopping_condition = MinimumLossDecrease;
       }
 
       else if(loss <= loss_goal)
@@ -436,7 +435,7 @@ Adam::AdamResults* Adam::perform_training()
 
          stop_training = true;
 
-         results_pointer->stopping_condition = PerformanceGoal;
+         results_pointer->stopping_condition = LossGoal;
       }
 
       else if(selection_failures >= maximum_selection_loss_decreases)
@@ -449,7 +448,7 @@ Adam::AdamResults* Adam::perform_training()
 
          stop_training = true;
 
-         results_pointer->stopping_condition = MaximumSelectionPerformanceDecreases;
+         results_pointer->stopping_condition = MaximumSelectionLossIncreases;
       }
 
       else if(gradient_norm <= gradient_norm_goal)
@@ -560,11 +559,11 @@ Adam::AdamResults* Adam::perform_training()
    if(return_minimum_selection_error_neural_network)
    {
        parameters = minimum_selection_error_parameters;
-       parameters_norm = parameters.calculate_norm();
+       parameters_norm = parameters.calculate_L2_norm();
 
        neural_network_pointer->set_parameters(parameters);
 
-       loss = loss_index_pointer->calculate_loss();
+       loss = loss_index_pointer->calculate_training_loss();
        selection_loss = minimum_selection_error;
    }
 

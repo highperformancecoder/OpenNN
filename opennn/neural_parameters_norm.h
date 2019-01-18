@@ -34,7 +34,7 @@
 namespace OpenNN
 {
 
-/// This class represents the neural parameters norm error term. 
+/// This class represents the neural parameters norm regularization term.
 /// This error term is very useful as a regularization functional in data modeling, optimal control or inverse problems.
 
 class NeuralParametersNorm : public RegularizationTerm
@@ -89,7 +89,6 @@ public:
    string write_information() const;
 
    // Serialization methods
-
   /// ownership passed - use delete to destroy
    tinyxml2::XMLDocument* to_XML() const;   
    void from_XML(const tinyxml2::XMLDocument&);

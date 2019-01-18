@@ -5,9 +5,8 @@
 /*                                                                                                              */
 /*   E V O L U T I O N A R Y   A L G O R I T H M   C L A S S                                                    */
 /*                                                                                                              */
-/*   Roberto Lopez                                                                                              */
 /*   Artificial Intelligence Techniques SL                                                                      */
-/*   robertolopez@artelnics.com                                                                                 */
+/*   artelnics@artelnics.com                                                                                    */
 /*                                                                                                              */
 /****************************************************************************************************************/
 
@@ -18,10 +17,8 @@
 namespace OpenNN
 {
 
-// DEFAULT CONSTRUCTOR
-
 /// Default constructor. 
-/// It creates a evolutionary training algorithm not associated to any loss functional.
+/// It creates a evolutionary training algorithm not associated to any loss index.
 /// It also initializes the class members to their default values.
 
 EvolutionaryAlgorithm::EvolutionaryAlgorithm() : TrainingAlgorithm()
@@ -30,12 +27,10 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm() : TrainingAlgorithm()
 }
 
 
-// PERFORMANCE FUNCTIONAL CONSTRUCTOR 
-
 /// Loss index constructor. 
-/// It creates a evolutionary training algorithm associated to a loss functional.
+/// It creates a evolutionary training algorithm associated to a loss index.
 /// It also initializes the class members to their default values.
-/// @param new_loss_index_pointer Pointer to a loss functional object.
+/// @param new_loss_index_pointer Pointer to a loss index object.
 
 EvolutionaryAlgorithm::EvolutionaryAlgorithm(LossIndex* new_loss_index_pointer)
 : TrainingAlgorithm(new_loss_index_pointer)
@@ -47,7 +42,7 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithm(LossIndex* new_loss_index_pointer)
 // XML CONSTRUCTOR
 
 /// XML constructor. 
-/// It creates a evolutionary training algorithm not associated to any loss functional.
+/// It creates a evolutionary training algorithm not associated to any loss index.
 /// It also loads the class members from a XML document.
 /// @param evolutionary_algorithm_document TinyXML document with the evolutionary algorithm object members.
 
@@ -69,7 +64,6 @@ EvolutionaryAlgorithm::~EvolutionaryAlgorithm()
 
 // METHODS
 
-// const FitnessAssignmentMethod& get_fitness_assignment_method() const method
 
 /// Returns the fitness assignment method used for training.
  
@@ -78,8 +72,6 @@ const EvolutionaryAlgorithm::FitnessAssignmentMethod& EvolutionaryAlgorithm::get
    return(fitness_assignment_method);
 }
 
-
-// string write_fitness_assignment_method() const method
 
 /// Returns a string with the name of the method used for fitness assignment.  
 
@@ -91,24 +83,11 @@ string EvolutionaryAlgorithm::write_fitness_assignment_method() const
       {
          return("LinearRanking");
 	  }
-      break;
-
-	  default:
-      {
-         ostringstream buffer;
-
-         buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
-                << "string write_fitness_assignment_method() const method.\n"
-                << "Unknown fitness assignment method.\n";
- 
-         throw logic_error(buffer.str());	     
-	  }
-      break;
    }
+
+   return string();
 }
 
-
-// const SelectionMethod& get_selection_method() const method
 
 /// Returns the selection method used for training.
 
@@ -117,8 +96,6 @@ const EvolutionaryAlgorithm::SelectionMethod& EvolutionaryAlgorithm::get_selecti
    return(selection_method);
 }
 
-
-// string write_selection_method() const method
 
 /// Returns a string with the name of the method used for selection.  
 
@@ -130,24 +107,11 @@ string EvolutionaryAlgorithm::write_selection_method() const
       {
          return("RouletteWheel");
 	  }
-      break;
-
-	  default:
-      {
-         ostringstream buffer;
-
-         buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
-                << "string write_selection_method() const method.\n"
-                << "Unknown selection method.\n";
- 
-         throw logic_error(buffer.str());	     
-	  }
-      break;
    }
+
+   return string();
 }
 
-
-// const RecombinationMethod& get_recombination_method() const method
 
 /// Returns the recombination method used for training.
 
@@ -156,8 +120,6 @@ const EvolutionaryAlgorithm::RecombinationMethod& EvolutionaryAlgorithm::get_rec
    return(recombination_method);
 }
 
-
-// string write_recombination_method() const method
 
 /// Returns a string with the name of the method used for recombination.  
 
@@ -168,31 +130,16 @@ string EvolutionaryAlgorithm::write_recombination_method() const
       case Line:
       {
          return("Line");
-	  }
-      break;
-
+      }
       case Intermediate:
       {
          return("Intermediate");
-	  }
-      break;
-
-	  default:
-      {
-         ostringstream buffer;
-
-         buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
-                << "string write_recombination_method() const method.\n"
-                << "Unknown recombination method.\n";
- 
-         throw logic_error(buffer.str());	     
-	  }
-      break;
+      }
    }
+
+   return string();
 }
 
-
-// const MutationMethod get_mutation_method() const method
 
 /// Returns the mutation method used for training.
 
@@ -202,9 +149,7 @@ const EvolutionaryAlgorithm::MutationMethod& EvolutionaryAlgorithm::get_mutation
 }
 
 
-// string write_mutation_method() const method
-
-/// Returns a string with the name of the method used for mutation.  
+/// Returns a string with the name of the method used for mutation.
 
 string EvolutionaryAlgorithm::write_mutation_method() const
 {
@@ -213,31 +158,17 @@ string EvolutionaryAlgorithm::write_mutation_method() const
       case Normal:
       {
          return("Normal");
-	  }
-      break;
+      }
 
       case Uniform:
       {
          return("Uniform");
-	  }
-      break;
-
-	  default:
-      {
-         ostringstream buffer;
- 
-         buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
-                << "string get_mutation_method_name() const method.\n"
-                << "Unknown mutation method.\n";
- 
-         throw logic_error(buffer.str());	     
-	  }
-      break;
+      }
    }
+
+   return string();
 }
 
-
-// size_t get_population_size() const method
 
 /// Returns the number of individuals in the population.
 
@@ -247,8 +178,6 @@ size_t EvolutionaryAlgorithm::get_population_size() const
 }
 
 
-// const Matrix<double>& get_population() const method
-
 /// Returns the population matrix.
 
 const Matrix<double>& EvolutionaryAlgorithm::get_population() const
@@ -256,8 +185,6 @@ const Matrix<double>& EvolutionaryAlgorithm::get_population() const
    return(population);
 }
 
-
-// const Vector<double>& get_loss() const method
 
 /// Returns the actual loss value of all individuals in the population.
 
@@ -267,8 +194,6 @@ const Vector<double>& EvolutionaryAlgorithm::get_loss() const
 }
 
 
-// const Vector<double>& get_fitness() const method
-
 /// Returns the actual fitness value of all individuals in the population.
 
 const Vector<double>& EvolutionaryAlgorithm::get_fitness() const
@@ -277,8 +202,6 @@ const Vector<double>& EvolutionaryAlgorithm::get_fitness() const
 }
 
 
-// const Vector<bool>& get_selection() const method
-
 /// Returns the actual selection value of all individuals in the population.
 
 const Vector<bool>& EvolutionaryAlgorithm::get_selection() const
@@ -286,8 +209,6 @@ const Vector<bool>& EvolutionaryAlgorithm::get_selection() const
    return(selection);
 }
 
-
-// const double& get_warning_parameters_norm() const method
 
 /// Returns the minimum value for the norm of the parameters vector at wich a warning message is 
 /// written to the screen. 
@@ -298,8 +219,6 @@ const double& EvolutionaryAlgorithm::get_warning_parameters_norm() const
 }
 
 
-// const double& get_error_parameters_norm() const method
-
 /// Returns the value for the norm of the parameters vector at wich an error message is 
 /// written to the screen and the program exits. 
 
@@ -308,8 +227,6 @@ const double& EvolutionaryAlgorithm::get_error_parameters_norm() const
    return(error_parameters_norm);
 }
 
-
-// const double& get_best_loss_goal() const method
 
 /// Returns the goal value for the loss. 
 /// This is used as a stopping criterion when training a multilayer perceptron
@@ -320,17 +237,13 @@ const double& EvolutionaryAlgorithm::get_best_loss_goal() const
 }
 
 
-// const size_t& get_maximum_selection_loss_decreases() const method
-
 /// Returns the maximum number of selection failures during the training process. 
 
-const size_t& EvolutionaryAlgorithm::get_maximum_selection_loss_decreases() const
+const size_t& EvolutionaryAlgorithm::get_maximum_selection_error_decreases() const
 {
-   return(maximum_selection_loss_decreases);
+   return(maximum_selection_error_decreases);
 }
 
-
-// const double& get_maximum_time() const method
 
 /// Returns the maximum training time.  
 
@@ -340,8 +253,6 @@ const double& EvolutionaryAlgorithm::get_maximum_time() const
 }
 
 
-// const bool& get_reserve_elapsed_time_history() const method
-
 /// Returns true if the elapsed time history vector is to be reserved, and false otherwise.
 
 const bool& EvolutionaryAlgorithm::get_reserve_elapsed_time_history() const
@@ -350,17 +261,13 @@ const bool& EvolutionaryAlgorithm::get_reserve_elapsed_time_history() const
 }
 
 
-// const bool& get_reserve_selection_loss_history() const method
-
 /// Returns true if the selection loss history vector is to be reserved, and false otherwise.
 
-const bool& EvolutionaryAlgorithm::get_reserve_selection_loss_history() const
+const bool& EvolutionaryAlgorithm::get_reserve_selection_error_history() const
 {
-   return(reserve_selection_loss_history);
+   return(reserve_selection_error_history);
 }
 
-
-// const bool& get_reserve_population_history() const method
 
 /// Returns true if the population history vector of matrices is to be reserved, and false otherwise.
 
@@ -370,8 +277,6 @@ const bool& EvolutionaryAlgorithm::get_reserve_population_history() const
 }
 
 
-// const bool& get_reserve_best_individual_history() const method
-
 /// Returns true if the best individual history vector of vectors is to be reserved, and false otherwise.
 
 const bool& EvolutionaryAlgorithm::get_reserve_best_individual_history() const
@@ -380,8 +285,6 @@ const bool& EvolutionaryAlgorithm::get_reserve_best_individual_history() const
 }
 
 
-// const bool& get_reserve_mean_norm_history() const method
-
 /// Returns true if the mean population norm history vector is to be reserved, and false otherwise.
 
 const bool& EvolutionaryAlgorithm::get_reserve_mean_norm_history() const
@@ -389,8 +292,6 @@ const bool& EvolutionaryAlgorithm::get_reserve_mean_norm_history() const
    return(reserve_mean_norm_history);
 }
 
-
-// const bool& get_reserve_standard_deviation_norm_history() const method
 
 /// Returns true if the standard deviation of the population norm history vector is to be reserved,
 /// and false otherwise.
@@ -401,8 +302,6 @@ const bool& EvolutionaryAlgorithm::get_reserve_standard_deviation_norm_history()
 }
 
 
-// const bool& get_reserve_best_norm_history() const method
-
 /// Returns true if the norm of the best individual in the population history vector is to be 
 /// reserved, and false otherwise.
 
@@ -412,8 +311,6 @@ const bool& EvolutionaryAlgorithm::get_reserve_best_norm_history() const
 }
 
 
-// const bool& get_reserve_mean_loss_history() const method
-
 /// Returns true if the mean loss history vector is to be reserved, and false otherwise.
 
 const bool& EvolutionaryAlgorithm::get_reserve_mean_loss_history() const
@@ -421,8 +318,6 @@ const bool& EvolutionaryAlgorithm::get_reserve_mean_loss_history() const
    return(reserve_mean_loss_history);
 }
 
-
-// const bool& get_reserve_standard_deviation_loss_history() const method
 
 /// Returns true if the standard deviation of the loss history vector is to be reserved,
 /// and false otherwise.
@@ -433,8 +328,6 @@ const bool& EvolutionaryAlgorithm::get_reserve_standard_deviation_loss_history()
 }
 
 
-// const bool& get_reserve_best_loss_history() const method
-
 /// Returns true if the best loss history vector is to be reserved, and false otherwise.
 
 const bool& EvolutionaryAlgorithm::get_reserve_best_loss_history() const
@@ -443,22 +336,18 @@ const bool& EvolutionaryAlgorithm::get_reserve_best_loss_history() const
 }
 
 
-// void set() method
-
-/// Sets the loss functional pointer of this object to NULL. 
+/// Sets the loss index pointer of this object to nullptr.
 /// It also sets the rest of members to their default values. 
 
 void EvolutionaryAlgorithm::set()
 {
-   loss_index_pointer = NULL;
+   loss_index_pointer = nullptr;
 
    set_default();
 }
 
 
-// void set(LossIndex*) method
-
-/// Sets a new loss functional pointer to the evolutionary algorithm object. 
+/// Sets a new loss index pointer to the evolutionary algorithm object.
 /// It also sets the rest of members to their default values. 
 
 void EvolutionaryAlgorithm::set(LossIndex* new_loss_index_pointer)
@@ -468,8 +357,6 @@ void EvolutionaryAlgorithm::set(LossIndex* new_loss_index_pointer)
    set_default();
 }
 
-
-// void set_default() method
 
 /// Sets the members of the evolutionary algorithm object to their default values.
 /// Training operators:
@@ -490,9 +377,9 @@ void EvolutionaryAlgorithm::set(LossIndex* new_loss_index_pointer)
 /// </ul>
 /// Stopping criteria:
 /// <ul> 
-/// <li> Performance goal: -1.0e99.
-/// <li> Mean loss goal: -1.0e99.
-/// <li> Standard deviation of loss goal: -1.0e99.
+/// <li> Loss goal: -numeric_limits<double>::max().
+/// <li> Mean loss goal: -numeric_limits<double>::max().
+/// <li> Standard deviation of loss goal: -numeric_limits<double>::max().
 /// <li> Maximum training time: 1.0e6.
 /// <li> Maximum number of generations: 100. 
 /// </ul> 
@@ -544,9 +431,9 @@ void EvolutionaryAlgorithm::set_default()
 
    // Stopping criteria
 
-   mean_loss_goal = -1.0e99;
+   mean_loss_goal = -numeric_limits<double>::max();
    standard_deviation_loss_goal = 0.0;
-   best_loss_goal = -1.0e99;
+   best_loss_goal = -numeric_limits<double>::max();
 
    maximum_time = 1.0e6;
 
@@ -573,8 +460,6 @@ void EvolutionaryAlgorithm::set_default()
    display_period = 5;
 }
 
-
-// void set_population_size(size_t) method
 
 /// Sets a new population with a new number of individuals.  
 /// The new population size must be an even number equal or greater than four. 
@@ -619,14 +504,14 @@ void EvolutionaryAlgorithm::set_population_size(const size_t& new_population_siz
 
           buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
                  << "void set_population_size(size_t) method.\n"
-                 << "Neural network pointer is NULL.\n";
+                 << "Neural network pointer is nullptr.\n";
 
           throw logic_error(buffer.str());
        }
 
        #endif
 
-       const size_t parameters_number = neural_network_pointer->count_parameters_number();
+       const size_t parameters_number = neural_network_pointer->get_parameters_number();
 
        if(new_population_size < 4)
        {
@@ -672,8 +557,6 @@ void EvolutionaryAlgorithm::set_population_size(const size_t& new_population_siz
 }
 
 
-// void set_fitness_assignment_method(const string&) method
-
 /// Sets a new method for fitness assignment from a string containing the name.
 /// Possible values are:
 /// <ul>
@@ -700,8 +583,6 @@ void EvolutionaryAlgorithm::set_fitness_assignment_method(const string& new_fitn
 }
 
 
-// void set_selection_method(const string&) method
-
 /// Sets a new method for selection from a string containing the name.
 /// Possible values are:
 /// <ul>
@@ -727,8 +608,6 @@ void EvolutionaryAlgorithm::set_selection_method(const string& new_selection_met
    }
 }
 
-
-// void set_recombination_method(const string&) method
 
 /// Sets a new method for recombination from a string containing the name.
 /// Possible values are:
@@ -761,8 +640,6 @@ void EvolutionaryAlgorithm::set_recombination_method(const string& new_recombina
 }
 
 
-// void set_mutation_method(const string&) method
-
 /// Sets a new method for mutation from a string containing the name.
 /// Possible values are:
 /// <ul>
@@ -794,8 +671,6 @@ void EvolutionaryAlgorithm::set_mutation_method(const string& new_mutation_metho
 }
 
 
-// void set_population(const Matrix<double>&) method
-
 /// Sets a new population.
 ///
 /// @param new_population Population Matrix.
@@ -817,7 +692,7 @@ void EvolutionaryAlgorithm::set_population(const Matrix<double>& new_population)
 
     const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
 
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();   
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();   
 
    if(new_population.get_rows_number() != population_size)
    {
@@ -847,8 +722,6 @@ void EvolutionaryAlgorithm::set_population(const Matrix<double>& new_population)
    population = new_population;
 }
 
-
-// void set_loss(const Vector<double>&) method
 
 /// Sets a new population loss vector.
 ///
@@ -881,8 +754,6 @@ void EvolutionaryAlgorithm::set_loss(const Vector<double>& new_loss)
 }
 
 
-// void set_fitness(const Vector<double>&) method
-
 /// Sets a new population fitness vector.
 ///
 /// @param new_fitness Population fitness values.
@@ -913,8 +784,6 @@ void EvolutionaryAlgorithm::set_fitness(const Vector<double>& new_fitness)
    fitness = new_fitness;
 }
 
-
-// void set_selection(const Vector<bool>&) method
 
 /// Sets a new population selection vector.
 ///
@@ -947,8 +816,6 @@ void EvolutionaryAlgorithm::set_selection(const Vector<bool>& new_selection)
 }
 
 
-// void set_reserve_population_history(bool) method
-
 /// Makes the population history vector of matrices to be reseved or not in memory.
 /// @param new_reserve_population_history True if the population history vector of matrices is to be reserved, false 
 /// otherwise.
@@ -958,8 +825,6 @@ void EvolutionaryAlgorithm::set_reserve_population_history(const bool& new_reser
    reserve_population_history = new_reserve_population_history;
 }
 
-
-// void set_reserve_best_individual_history(bool) method
 
 /// Makes the best individual history vector of vectors to be reseved or not in memory.
 /// @param new_reserve_best_individual_history True if the best individual history vector of vectors is to be reserved, 
@@ -971,8 +836,6 @@ void EvolutionaryAlgorithm::set_reserve_best_individual_history(const bool& new_
 }
 
 
-// void set_reserve_mean_norm_history(bool) method
-
 /// Makes the mean norm history vector to be reseved or not in memory.
 ///
 /// @param new_reserve_mean_norm_history True if the mean norm history vector is to be reserved, false otherwise.
@@ -982,8 +845,6 @@ void EvolutionaryAlgorithm::set_reserve_mean_norm_history(const bool& new_reserv
    reserve_mean_norm_history = new_reserve_mean_norm_history;
 }
 
-
-// void set_reserve_standard_deviation_norm_history(bool) method
 
 /// Makes the standard deviation norm history vector to be reseved or not in memory.
 ///
@@ -997,8 +858,6 @@ set_reserve_standard_deviation_norm_history(const bool& new_reserve_standard_dev
 }
 
 
-// void set_reserve_best_norm_history(bool) method
-
 /// Makes the best norm history vector to be reseved or not in memory.
 ///
 /// @param new_reserve_best_norm_history True if the best norm history vector is to be reserved, false otherwise.
@@ -1008,8 +867,6 @@ void EvolutionaryAlgorithm::set_reserve_best_norm_history(const bool& new_reserv
    reserve_best_norm_history = new_reserve_best_norm_history;
 }
 
-
-// void set_reserve_mean_loss_history(bool) method
 
 /// Makes the mean loss history vector to be reseved or not in memory.
 ///
@@ -1021,8 +878,6 @@ void EvolutionaryAlgorithm::set_reserve_mean_loss_history(const bool& new_reserv
    reserve_mean_loss_history = new_reserve_mean_loss_history;
 }
 
-
-// void set_reserve_standard_deviation_loss_history(bool) method
 
 /// Makes the standard deviation loss history vector to be reseved or not in memory.
 ///
@@ -1036,8 +891,6 @@ void EvolutionaryAlgorithm
 }
 
 
-// void set_reserve_best_loss_history(bool) method
-
 /// Makes the best loss history vector to be reseved or not in memory.
 ///
 /// @param new_reserve_best_loss_history True if the best loss history vector is to be reserved, 
@@ -1048,8 +901,6 @@ void EvolutionaryAlgorithm::set_reserve_best_loss_history(const bool& new_reserv
    reserve_best_loss_history = new_reserve_best_loss_history;
 }
 
-
-// void set_reserve_all_training_history(bool) method
 
 /// Makes the training history of all variables to reseved or not in memory.
 ///
@@ -1068,7 +919,7 @@ void EvolutionaryAlgorithm::set_reserve_all_training_history(const bool& new_res
    reserve_standard_deviation_norm_history = new_reserve_all_training_history;
    reserve_best_norm_history = new_reserve_all_training_history;
 
-   // Objective functional
+   // Loss index
 
    reserve_mean_loss_history = new_reserve_all_training_history;
    reserve_standard_deviation_loss_history = new_reserve_all_training_history;
@@ -1079,8 +930,6 @@ void EvolutionaryAlgorithm::set_reserve_all_training_history(const bool& new_res
    reserve_elapsed_time_history = new_reserve_all_training_history;
 }
 
-
-// Vector<double> get_individual(const size_t&) const method
 
 /// Returns the Vector of parameters corresponding to the individual i in the population.
 ///
@@ -1115,8 +964,6 @@ Vector<double> EvolutionaryAlgorithm::get_individual(const size_t& i) const
 }
 
 
-// set_individual(const size_t&, Vector<double>) method
-
 /// Sets a new Vector of parameters to the individual i in the population. 
 ///
 /// @param i Index of individual in the population.
@@ -1132,7 +979,7 @@ void EvolutionaryAlgorithm::set_individual(const size_t& i, const Vector<double>
 
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
 
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();
 
    const size_t population_size = get_population_size();
 
@@ -1165,8 +1012,6 @@ void EvolutionaryAlgorithm::set_individual(const size_t& i, const Vector<double>
 }
 
 
-// size_t calculate_best_individual_index() const method
-
 /// Returns the index of the individual with greatest fitness.
 
 size_t EvolutionaryAlgorithm::calculate_best_individual_index() const
@@ -1174,8 +1019,6 @@ size_t EvolutionaryAlgorithm::calculate_best_individual_index() const
     return(fitness.calculate_maximal_index());
 }
 
-
-// void set_warning_parameters_norm(const double&) method
 
 /// Sets a new value for the parameters vector norm at which a warning message is written to the 
 /// screen. 
@@ -1206,8 +1049,6 @@ void EvolutionaryAlgorithm::set_warning_parameters_norm(const double& new_warnin
 }
 
 
-// void set_error_parameters_norm(const double&) method
-
 /// Sets a new value for the parameters vector norm at which an error message is written to the 
 /// screen and the program exits. 
 /// @param new_error_parameters_norm Error norm of parameters vector value. 
@@ -1237,8 +1078,6 @@ void EvolutionaryAlgorithm::set_error_parameters_norm(const double& new_error_pa
 }
 
 
-// void set_best_loss_goal(const double&) method
-
 /// Sets a new goal value for the loss.
 /// This is used as a stopping criterion when training a multilayer perceptron.
 /// @param new_best_loss_goal Goal value for the loss.
@@ -1249,18 +1088,14 @@ void EvolutionaryAlgorithm::set_best_loss_goal(const double& new_best_loss_goal)
 }
 
 
-// void set_maximum_selection_loss_decreases(const size_t&) method
-
 /// Sets a new maximum number of selection failures. 
-/// @param new_maximum_selection_loss_decreases Maximum number of iterations in which the selection evalutation decreases. 
+/// @param new_maximum_selection_error_decreases Maximum number of iterations in which the selection evalutation decreases. 
 
-void EvolutionaryAlgorithm::set_maximum_selection_loss_decreases(const size_t& new_maximum_selection_loss_decreases)
+void EvolutionaryAlgorithm::set_maximum_selection_error_increases(const size_t& new_maximum_selection_error_decreases)
 {
-   maximum_selection_loss_decreases = new_maximum_selection_loss_decreases;
+   maximum_selection_error_decreases = new_maximum_selection_error_decreases;
 }
 
-
-// void set_maximum_time(const double&) method
 
 /// Sets a new maximum training time.  
 /// @param new_maximum_time Maximum training time.
@@ -1290,8 +1125,6 @@ void EvolutionaryAlgorithm::set_maximum_time(const double& new_maximum_time)
 }
 
 
-// void set_reserve_elapsed_time_history(const bool&) method
-
 /// Makes the elapsed time over the iterations to be reseved or not in memory. This is a vector.
 /// @param new_reserve_elapsed_time_history True if the elapsed time history vector is to be reserved, false 
 /// otherwise.
@@ -1302,19 +1135,15 @@ void EvolutionaryAlgorithm::set_reserve_elapsed_time_history(const bool& new_res
 }
 
 
-// void set_reserve_selection_loss_history(const bool&) method
-
 /// Makes the selection loss history to be reserved or not in memory.
 /// This is a vector. 
-/// @param new_reserve_selection_loss_history True if the selection loss history is to be reserved, false otherwise.
+/// @param new_reserve_selection_error_history True if the selection loss history is to be reserved, false otherwise.
 
-void EvolutionaryAlgorithm::set_reserve_selection_loss_history(const bool& new_reserve_selection_loss_history)  
+void EvolutionaryAlgorithm::set_reserve_selection_error_history(const bool& new_reserve_selection_error_history)  
 {
-   reserve_selection_loss_history = new_reserve_selection_loss_history;
+   reserve_selection_error_history = new_reserve_selection_error_history;
 }
 
-
-// void set_display_period(const size_t&) method
 
 /// Sets a new number of iterations between the training showing progress. 
 /// @param new_display_period
@@ -1343,9 +1172,6 @@ void EvolutionaryAlgorithm::set_display_period(const size_t& new_display_period)
 }
 
 
-
-// Vector<double> calculate_population_norm() const method
-
 /// Returns a vector containing the norm of each individual in the population.
 
 Vector<double> EvolutionaryAlgorithm::calculate_population_norm() const
@@ -1356,7 +1182,7 @@ Vector<double> EvolutionaryAlgorithm::calculate_population_norm() const
 
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
 
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();
 
    Vector<double> individual(parameters_number);
 
@@ -1364,14 +1190,12 @@ Vector<double> EvolutionaryAlgorithm::calculate_population_norm() const
    {
       individual = get_individual(i);
            
-      population_norm[i] = individual.calculate_norm();     
+      population_norm[i] = individual.calculate_L2_norm();
    }               
    
    return(population_norm);            
 }
 
-
-// double calculate_mean_loss() const method
 
 /// Returns the mean value of the individuals loss. 
 
@@ -1380,8 +1204,6 @@ double EvolutionaryAlgorithm::calculate_mean_loss() const
    return(loss.calculate_mean());
 }
 
-
-// double calculate_standard_deviation_loss() const method
 
 /// Returns the standard deviation value of the individuals loss. 
 
@@ -1393,8 +1215,6 @@ double EvolutionaryAlgorithm::calculate_standard_deviation_loss() const
 
 // Training parameters
 
-// const bool& get_elitism_size() const method
-
 /// Returns the number of individuals which will always be selected for recombination.
 
 const size_t& EvolutionaryAlgorithm::get_elitism_size() const
@@ -1402,8 +1222,6 @@ const size_t& EvolutionaryAlgorithm::get_elitism_size() const
    return(elitism_size);
 }
 
-
-// const double& get_selective_pressure() const method 
 
 /// Returns the selective pressure value.
 
@@ -1413,8 +1231,6 @@ const double& EvolutionaryAlgorithm::get_selective_pressure() const
 }
 
 
-// const double& get_recombination_size() const method
-
 /// Returns the recombination size value.
 
 const double& EvolutionaryAlgorithm::get_recombination_size() const
@@ -1422,8 +1238,6 @@ const double& EvolutionaryAlgorithm::get_recombination_size() const
    return(recombination_size);
 }
 
-
-// const double& get_mutation_rate() const method
 
 /// Returns the mutation rate value.
 
@@ -1433,8 +1247,6 @@ const double& EvolutionaryAlgorithm::get_mutation_rate() const
 }
 
 
-// const double& get_mutation_range() const method
-
 /// Returns the mutation range value.
 
 const double& EvolutionaryAlgorithm::get_mutation_range() const
@@ -1442,8 +1254,6 @@ const double& EvolutionaryAlgorithm::get_mutation_range() const
    return(mutation_range);
 }
 
-
-// const double& get_mean_loss_goal() const method
 
 /// Returns the mean loss value of the population at which training will stop.
 
@@ -1453,8 +1263,6 @@ const double& EvolutionaryAlgorithm::get_mean_loss_goal() const
 }
 
 
-// const double& get_standard_deviation_loss_goal() const method
-
 /// Returns the standard deviation of the loss at which training will stop.
 
 const double& EvolutionaryAlgorithm::get_standard_deviation_loss_goal() const
@@ -1463,8 +1271,6 @@ const double& EvolutionaryAlgorithm::get_standard_deviation_loss_goal() const
 }
 
 
-// const size_t& get_maximum_generations_number() const method
-
 /// Returns the maximum number of generations to train. 
 
 const size_t& EvolutionaryAlgorithm::get_maximum_generations_number() const
@@ -1472,8 +1278,6 @@ const size_t& EvolutionaryAlgorithm::get_maximum_generations_number() const
    return(maximum_generations_number);
 }
 
-
-// void set_elitism_size(const size_t&) method
 
 /// Sets a new elitism size to the evolutionary algorithm.
 /// The elitism size is the number of individuals which will always be selected for recombination.
@@ -1498,8 +1302,6 @@ void EvolutionaryAlgorithm::set_elitism_size(const size_t& new_elitism_size)
 }
 
 
-// void set_selective_pressure(const double&) method
-
 /// Sets a new value for the selective pressure parameter.
 /// Linear ranking allows values for the selective pressure greater than 0.
 /// @param new_selective_pressure Selective pressure value.
@@ -1522,8 +1324,6 @@ void EvolutionaryAlgorithm::set_selective_pressure(const double& new_selective_p
     selective_pressure = new_selective_pressure;
 }
 
-
-// void set_recombination_size(const double&) method
 
 /// Sets a new value for the recombination size parameter.
 /// The recombination size value must be equal or greater than 0.
@@ -1548,8 +1348,6 @@ void EvolutionaryAlgorithm::set_recombination_size(const double& new_recombinati
    recombination_size = new_recombination_size;
 }
 
-
-// void set_mutation_rate(const double&) method
 
 /// Sets a new value for the mutation rate parameter.
 /// The mutation rate value must be between 0 and 1.
@@ -1577,8 +1375,6 @@ void EvolutionaryAlgorithm::set_mutation_rate(const double& new_mutation_rate)
 }
 
 
-// void set_mutation_range(const double&) method
-
 /// Sets a new value for the mutation range parameter.
 /// The mutation range value must be 0 or a positive number. 
 ///
@@ -1604,8 +1400,6 @@ void EvolutionaryAlgorithm::set_mutation_range(const double& new_mutation_range)
    mutation_range = new_mutation_range;
 }
 
-
-// void set_maximum_generations_number(size_t) method
 
 /// Sets a new value for the maximum number of generations to perform_training.
 /// The maximum number of generations value must be a positive number. 
@@ -1636,9 +1430,6 @@ void EvolutionaryAlgorithm::set_maximum_generations_number(const size_t& new_max
 }
 
 
-
-// void set_mean_loss_goal(const double&) method
-
 /// Sets a new value for the mean loss goal stopping criterion.
 /// @param new_mean_loss_goal Goal value for the mean loss of the population. 
 
@@ -1647,8 +1438,6 @@ void EvolutionaryAlgorithm::set_mean_loss_goal(const double& new_mean_loss_goal)
    mean_loss_goal = new_mean_loss_goal;
 }
 
-
-// void set_standard_deviation_loss_goal(const double&) method
 
 /// Sets a new value for the standard deviation loss goal stopping criterion.
 /// @param new_standard_deviation_loss_goal Goal for the standard deviation loss of the population. 
@@ -1678,7 +1467,6 @@ void EvolutionaryAlgorithm::set_standard_deviation_loss_goal(const double& new_s
 
 }
 
-// void set_fitness_assignment_method(FitnessAssignmentMethod) method
 
 /// Sets a new fitness assignment method to be used for training.
 /// @param new_fitness_assignment_method Fitness assignment method chosen for training.
@@ -1689,8 +1477,6 @@ void EvolutionaryAlgorithm::set_fitness_assignment_method
    fitness_assignment_method = new_fitness_assignment_method;
 }
 
-
-// void set_selection_method(SelectionMethod) method
 
 /// Sets a new selection method to be used for training.
 ///
@@ -1703,8 +1489,6 @@ set_selection_method(const EvolutionaryAlgorithm::SelectionMethod& new_selection
 }
 
 
-// void set_recombination_method(RecombinationMethod) method
-
 /// Sets a new recombination method to be used for training.
 ///
 /// @param new_recombination_method Recombination method chosen for training. 
@@ -1716,8 +1500,6 @@ void EvolutionaryAlgorithm
 }
 
 
-// void set_mutation_method(MutationMethod) method
-
 /// Sets a new mutation method to be used for training.
 ///
 /// @param new_mutation_method Mutation method chosen for training. 
@@ -1728,8 +1510,6 @@ void EvolutionaryAlgorithm::set_mutation_method(const EvolutionaryAlgorithm::Mut
 }	
 
 
-// void initialize_population(const double&) method
-
 /// Initializes the population matrix with a given value.
 /// @param new_value Initialization value. 
 
@@ -1739,9 +1519,6 @@ void EvolutionaryAlgorithm::initialize_population(const double& new_value)
 }
 
 
-
-// void randomize_population_uniform() method
-
 /// Initializes the parameters of all the individuals in the population at random, with values 
 /// comprised between -1 and 1.
 
@@ -1750,8 +1527,6 @@ void EvolutionaryAlgorithm::randomize_population_uniform()
    population.randomize_uniform();
 }
 
-
-// void randomize_population_uniform(const double&, const double&) method
 
 /// Initializes the parameters of all the individuals in the population at random, with values 
 /// comprised between a minimum and a maximum value.
@@ -1765,8 +1540,6 @@ void EvolutionaryAlgorithm::randomize_population_uniform(const double& minimum, 
 }
 
 
-// void randomize_population_uniform(Vector<double>, Vector<double>) method
-
 /// Initializes the parameters of all the individuals in the population at random, with values 
 /// comprised between different minimum and maximum values for each variable.
 ///
@@ -1777,7 +1550,7 @@ void EvolutionaryAlgorithm::randomize_population_uniform(const Vector<double>& m
 {
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
 
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();   
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();   
 
    // Control sentence(if debug)
 
@@ -1812,8 +1585,6 @@ void EvolutionaryAlgorithm::randomize_population_uniform(const Vector<double>& m
 }
 
 
-// void randomize_population_normal() method
-
 /// Initializes the parameters of all the individuals in the population with random values chosen
 /// from a normal distribution with mean 0 and standard deviation 1.
 
@@ -1822,8 +1593,6 @@ void EvolutionaryAlgorithm::randomize_population_normal()
    population.randomize_normal();
 }
 
-
-// void randomize_population_normal(const double&, const double&) method
 
 /// Initializes the parameters of all the individuals in the population with random values chosen
 /// from a normal distribution with a given mean and a given standard deviation.
@@ -1837,8 +1606,6 @@ void EvolutionaryAlgorithm::randomize_population_normal(const double& mean, cons
 }
 
 
-// void randomize_population_normal(Vector<double>, Vector<double>) method
-
 /// Initializes the parameters of all the individuals in the population with random values chosen
 /// from normal distributions with different mean and standard deviation for each free parameter.
 ///
@@ -1850,7 +1617,7 @@ randomize_population_normal(const Vector<double>& mean, const Vector<double>& st
 {
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
 
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();   
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();   
 
    // Control sentence(if debug)
 
@@ -1885,8 +1652,6 @@ randomize_population_normal(const Vector<double>& mean, const Vector<double>& st
 }
 
 
-// void perform_fitness_assignment() method
-
 /// Assigns a fitness value to all the individuals in the population according to the finess assignment operator.
 
 void EvolutionaryAlgorithm::perform_fitness_assignment()
@@ -1899,23 +1664,9 @@ void EvolutionaryAlgorithm::perform_fitness_assignment()
       }
 
       break;
-
-	  default:
-	  {
-         ostringstream buffer;
-
-         buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
-                << "void perform_fitness_assignment().\n"
-                << "Unknown fitness assignment method.\n";
- 
-         throw logic_error(buffer.str());	     
-	  }
-	  break;
    }
 }
 
-
-// void perform_selection() method
 
 /// Selects for recombination some individuals from the population according to the selection operator.
 
@@ -1928,18 +1679,6 @@ void EvolutionaryAlgorithm::perform_selection()
          perform_roulette_wheel_selection();
       }
       break;
-
-	  default:
-	  {
-         ostringstream buffer;
-
-         buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
-                << "void perform_selection().\n"
-                << "Unknown selection method.\n";
- 
-         throw logic_error(buffer.str());	     
-	  }
-	  break;
    }
 
    // Control sentence(if debug)
@@ -1965,8 +1704,6 @@ void EvolutionaryAlgorithm::perform_selection()
 }
 
 
-// void perform_recombination() method
-
 /// Recombinates the selected individuals according to the recombination operator.
 
 void EvolutionaryAlgorithm::perform_recombination()
@@ -1984,23 +1721,9 @@ void EvolutionaryAlgorithm::perform_recombination()
          perform_line_recombination();
       } 
       break;
-
-	  default:
-	  {
-         ostringstream buffer;
- 
-         buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
-                << "void perform_recombination().\n"
-                << "Unknown recombination method.\n";
- 
-         throw logic_error(buffer.str());	     
-	  }
-	  break;
    }
 }
 
-
-// void perform_mutation() method
 
 /// Mutates the population matrix according to the mutation operator.
 
@@ -2019,23 +1742,9 @@ void EvolutionaryAlgorithm::perform_mutation()
          perform_uniform_mutation();
       }
       break;
-
-	  default:
-	  {
-         ostringstream buffer;
-
-         buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
-                << "void perform_mutationg().\n"
-                << "Unknown mutation method.\n";
- 
-         throw logic_error(buffer.str());	     
-	  }
-	  break;
    }
 }
 
-
-// void evolve_population() method
 
 /// Generates a new population matrix by applying fitness assignment, selection, recombination and mutation.
 
@@ -2059,9 +1768,7 @@ void EvolutionaryAlgorithm::evolve_population()
 }
 
 
-// void evaluate_population() method
-
-/// Evaluates the loss functional of all individuals in the population.
+/// Evaluates the loss index of all individuals in the population.
 /// Results are stored in the loss vector.
 
 void EvolutionaryAlgorithm::evaluate_population()
@@ -2070,13 +1777,13 @@ void EvolutionaryAlgorithm::evaluate_population()
 
    #ifdef __OPENNN_DEBUG__ 
 
-   if(loss_index_pointer == NULL)   
+   if(loss_index_pointer == nullptr)   
    {
       ostringstream buffer;
 
       buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
              << "void evaluate_population().\n"
-             << "Loss index pointer is NULL.\n";
+             << "Loss index pointer is nullptr.\n";
  
       throw logic_error(buffer.str());	  
    }
@@ -2084,6 +1791,8 @@ void EvolutionaryAlgorithm::evaluate_population()
    #endif
 
    // Neural network
+
+   const Vector<size_t> training_indices = loss_index_pointer->get_data_set_pointer()->get_instances().get_training_indices();
 
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
 
@@ -2097,18 +1806,18 @@ void EvolutionaryAlgorithm::evaluate_population()
 
       buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
              << "void evaluate_population().\n"
-             << "Neural network pointer is NULL.\n";
+             << "Neural network pointer is nullptr.\n";
  
       throw logic_error(buffer.str());	  
    }
 
    #endif
 
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();
 
    Vector<double> individual(parameters_number);
 
-   // Evaluate loss functional for all individuals
+   // Evaluate loss index for all individuals
 
    const size_t population_size = get_population_size();
 
@@ -2118,7 +1827,7 @@ void EvolutionaryAlgorithm::evaluate_population()
    {
       loss[i] = loss_index_pointer->calculate_loss_for_individual(i);
       
-      if(!(loss[i] > -1.0e99 && loss[i] < 1.0e99))
+      if(!(loss[i] > -numeric_limits<double>::max() && loss[i] < numeric_limits<double>::max()))
       {
          ostringstream buffer;
 
@@ -2131,8 +1840,6 @@ void EvolutionaryAlgorithm::evaluate_population()
    }
 }
 
-
-// void perform_linear_ranking_fitness_assignment() method
 
 /// Ranks all individuals in the population by their loss,
 /// so that the least fit individual has rank 1 and the fittest individual has rank [population size].
@@ -2158,8 +1865,6 @@ void EvolutionaryAlgorithm::perform_linear_ranking_fitness_assignment()
    }
 }
 
-
-// void perform_roulette_wheel_selection() method
 
 /// This metod performs selection with roulette wheel selection.
 /// It selects half of the individuals from the population.
@@ -2255,8 +1960,6 @@ void EvolutionaryAlgorithm::perform_roulette_wheel_selection()
 }
 
 
-// void perform_intermediate_recombination() method
-
 /// Performs intermediate recombination between pairs of selected individuals to generate a new population.
 /// Each selected individual is to be recombined with two other selected individuals chosen at random. 
 /// Results are stored in the population matrix.
@@ -2282,7 +1985,7 @@ void EvolutionaryAlgorithm::perform_intermediate_recombination()
 
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
      
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();
 
    Matrix<double> new_population(population_size, parameters_number);
 
@@ -2331,7 +2034,7 @@ void EvolutionaryAlgorithm::perform_intermediate_recombination()
             do{
                // Integer random number beteen 0 and population size
 
-               parent_2_candidate_index =(size_t)calculate_random_uniform(0.0,(double)population_size);
+               parent_2_candidate_index = static_cast<size_t>(calculate_random_uniform(0.0,static_cast<double>(population_size)));
 
                // Check if candidate for parent 2 is ok
 
@@ -2355,7 +2058,7 @@ void EvolutionaryAlgorithm::perform_intermediate_recombination()
 
                      scaling_factor = calculate_random_uniform(-recombination_size, 1.0 + recombination_size);
 
-                     offspring[j] = scaling_factor*parent_1[j] +(1.0 - scaling_factor)*parent_2[j];
+                     offspring[j] = scaling_factor*parent_1[j] + (1.0 - scaling_factor)*parent_2[j];
                   }
 
                   // Add offspring to new_population matrix
@@ -2393,8 +2096,6 @@ void EvolutionaryAlgorithm::perform_intermediate_recombination()
 }
 
 
-// void perform_line_recombination() method
-
 /// Performs line recombination between pairs of selected individuals to generate a new population.
 /// Each selected individual is to be recombined with two other selected individuals chosen at random. 
 /// Results are stored in the population matrix.
@@ -2420,7 +2121,7 @@ void EvolutionaryAlgorithm::perform_line_recombination()
 
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
      
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();
 
    Matrix<double> new_population(population_size, parameters_number);
 
@@ -2472,7 +2173,7 @@ void EvolutionaryAlgorithm::perform_line_recombination()
             {
                // Integer random number beteen 0 and population size
 
-               parent_2_candidate_index =(size_t)calculate_random_uniform(0.0,(double)population_size);
+               parent_2_candidate_index = static_cast<size_t>(calculate_random_uniform(0.0,static_cast<double>(population_size)));
 
                // Check if candidate for parent 2 is ok
 
@@ -2530,8 +2231,6 @@ void EvolutionaryAlgorithm::perform_line_recombination()
 }
 
 
-// void perform_normal_mutation() method
-
 /// Performs normal mutation to all individuals in order to generate a new population.
 /// Results are stored in the population matrix.
 
@@ -2541,7 +2240,7 @@ void EvolutionaryAlgorithm::perform_normal_mutation()
 
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
      
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();
 
    Vector<double> individual(parameters_number);
 
@@ -2569,8 +2268,6 @@ void EvolutionaryAlgorithm::perform_normal_mutation()
 }  
 
 
-// void perform_uniform_mutation() method
-
 /// Performs uniform mutation to all individuals in order to generate a new population.
 /// Results are stored in the population matrix.
 
@@ -2580,7 +2277,7 @@ void EvolutionaryAlgorithm::perform_uniform_mutation()
 
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
      
-   const size_t parameters_number = neural_network_pointer->count_parameters_number();
+   const size_t parameters_number = neural_network_pointer->get_parameters_number();
    
    Vector<double> individual(parameters_number, 0.0);
 
@@ -2696,10 +2393,10 @@ string EvolutionaryAlgorithm::EvolutionaryAlgorithmResults::object_to_string() c
 
    // Selection loss history
 
-   if(!selection_loss_history.empty())
+   if(!selection_error_history.empty())
    {
        buffer << "% Selection loss history:\n"
-              << selection_loss_history << "\n"; 
+              << selection_error_history << "\n"; 
    }
 
    // Elapsed time history   
@@ -2713,8 +2410,6 @@ string EvolutionaryAlgorithm::EvolutionaryAlgorithmResults::object_to_string() c
    return(buffer.str());
 }
 
-
-// void resize_training_history(const size_t&) method
 
 /// Resizes all the training history variables. 
 /// @param new_size Size of training history variables. 
@@ -2765,9 +2460,9 @@ void EvolutionaryAlgorithm::EvolutionaryAlgorithmResults::resize_training_histor
         best_loss_history.resize(new_size);
     }
 //
-    if(evolutionary_algorithm_pointer->get_reserve_selection_loss_history())
+    if(evolutionary_algorithm_pointer->get_reserve_selection_error_history())
     {
-        selection_loss_history.resize(new_size);
+        selection_error_history.resize(new_size);
     }
 
     if(evolutionary_algorithm_pointer->get_reserve_elapsed_time_history())
@@ -2777,9 +2472,7 @@ void EvolutionaryAlgorithm::EvolutionaryAlgorithmResults::resize_training_histor
 }
 
 
-// Matrix<string> write_final_results(const size_t& precision) const method
-
-Matrix<string> EvolutionaryAlgorithm::EvolutionaryAlgorithmResults::write_final_results(const size_t& precision) const
+Matrix<string> EvolutionaryAlgorithm::EvolutionaryAlgorithmResults::write_final_results(const int& precision) const
 {
    ostringstream buffer;
 
@@ -2840,20 +2533,20 @@ Matrix<string> EvolutionaryAlgorithm::EvolutionaryAlgorithmResults::write_final_
 
    values.push_back(buffer.str());
 
-   // Final selection loss
-
+   // Final selection error
+/*
    const LossIndex* loss_index_pointer = evolutionary_algorithm_pointer->get_loss_index_pointer();
 
    if(loss_index_pointer->has_selection())
    {
-       names.push_back("Final selection loss");
+       names.push_back("Final selection error");
 
        buffer.str("");
-       buffer << setprecision(precision) << final_selection_loss;
+       buffer << setprecision(precision) << final_selection_error;
 
        values.push_back(buffer.str());
     }
-
+*/
    // Generations number
 
    names.push_back("Generations number");
@@ -2886,8 +2579,6 @@ Matrix<string> EvolutionaryAlgorithm::EvolutionaryAlgorithmResults::write_final_
 }
 
 
-// EvolutionaryAlgorithmResults* perform_training() method
-
 /// Trains a neural network with an associated loss function according to the evolutionary algorithm.
 /// Training occurs according to the training operators and their related parameters.
 
@@ -2917,6 +2608,14 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithmResults* EvolutionaryAlgorithm::perf
       cout << "Training with the evolutionary algorithm...\n";
    }
 
+   // Data set stuff
+
+   DataSet* data_set_pointer = loss_index_pointer->get_data_set_pointer();
+
+   const Instances& instances = data_set_pointer->get_instances();
+
+   const size_t selection_instances_number = instances.get_selection_instances_number();
+
    EvolutionaryAlgorithmResults* results_pointer = new EvolutionaryAlgorithmResults(this);
 
    results_pointer->resize_training_history(1+maximum_generations_number);
@@ -2940,12 +2639,12 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithmResults* EvolutionaryAlgorithm::perf
    size_t best_individual_index;
    double best_norm = 0.0;
 
-   double best_loss_ever = 1.0e99;
+   double best_loss_ever = numeric_limits<double>::max();
 
-   double best_generation_loss = 1.0e99;
+   double best_generation_loss = numeric_limits<double>::max();
 
-   double selection_loss = 0.0; 
-//   double old_selection_loss = 0.0;
+   double selection_error = 0.0; 
+//   double old_selection_error = 0.0;
 
     // Neural network stuff
 
@@ -2996,13 +2695,13 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithmResults* EvolutionaryAlgorithm::perf
 
         neural_network_pointer->set_parameters(best_individual);
 
-        best_norm = best_individual.calculate_norm();
+        best_norm = best_individual.calculate_L2_norm();
 
         best_loss_ever = best_generation_loss;
 
-        //old_selection_loss = selection_loss;
+        //old_selection_error = selection_error;
 
-        selection_loss = loss_index_pointer->calculate_selection_loss();
+        if(selection_instances_number > 0) selection_error = loss_index_pointer->calculate_selection_error();
      }
 
       // Best individual 
@@ -3046,9 +2745,9 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithmResults* EvolutionaryAlgorithm::perf
 
       // selection loss
 
-      if(reserve_selection_loss_history)
+      if(reserve_selection_error_history)
       {
-         results_pointer->selection_loss_history[generation] = selection_loss;
+         results_pointer->selection_error_history[generation] = selection_error;
       }
 
       // Elapsed time
@@ -3143,7 +2842,7 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithmResults* EvolutionaryAlgorithm::perf
 		 stop_training = true;
       }
 
-      else if(selection_failures > maximum_selection_loss_decreases)
+      else if(selection_failures > maximum_selection_error_decreases)
       {
          if(display)
          {
@@ -3201,7 +2900,7 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithmResults* EvolutionaryAlgorithm::perf
          results_pointer->final_mean_loss = mean_loss;
          results_pointer->final_standard_deviation_loss = standard_deviation_loss;
          results_pointer->final_best_loss = best_loss_ever;
-         results_pointer->final_selection_loss = selection_loss;
+         results_pointer->final_selection_error = selection_error;
          results_pointer->elapsed_time = elapsed_time;
          results_pointer->generations_number = generation;
 
@@ -3222,7 +2921,7 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithmResults* EvolutionaryAlgorithm::perf
 
       // Update stuff
 
- //     old_selection_loss = selection_loss;
+ //     old_selection_error = selection_error;
 
       selection.initialize(false);
 
@@ -3234,15 +2933,11 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithmResults* EvolutionaryAlgorithm::perf
 }
 
 
-// string write_training_algorithm_type() const method
-
 string EvolutionaryAlgorithm::write_training_algorithm_type() const
 {
    return("EVOLUTIONARY_ALGORITHM");
 }
 
-
-// Matrix<string> to_string_matrix() const method
 
 /// Writes as matrix of strings the most representative atributes.
 
@@ -3341,7 +3036,7 @@ Matrix<string> EvolutionaryAlgorithm::to_string_matrix() const
    labels.push_back("Maximum selection failures");
 
    buffer.str("");
-   buffer << maximum_selection_loss_decreases;
+   buffer << maximum_selection_error_decreases;
 
    values.push_back(buffer.str());
 
@@ -3368,7 +3063,7 @@ Matrix<string> EvolutionaryAlgorithm::to_string_matrix() const
    labels.push_back("Reserve selection loss history");
 
    buffer.str("");
-   buffer << reserve_selection_loss_history;
+   buffer << reserve_selection_error_history;
 
    values.push_back(buffer.str());
 
@@ -3392,8 +3087,6 @@ Matrix<string> EvolutionaryAlgorithm::to_string_matrix() const
     return(string_matrix);
 }
 
-
-// tinyxml2::XMLDocument* to_XML() const method
 
 /// Prints to the screen the members of the evolutionary algorithm object.
 ///
@@ -3450,8 +3143,8 @@ tinyxml2::XMLDocument* EvolutionaryAlgorithm::to_XML() const
 
    document->InsertFirstChild(root_element);
 
-   tinyxml2::XMLElement* element = NULL;
-   tinyxml2::XMLText* text = NULL;
+   tinyxml2::XMLElement* element = nullptr;
+   tinyxml2::XMLText* text = nullptr;
 
    // Population
 
@@ -3589,7 +3282,7 @@ tinyxml2::XMLDocument* EvolutionaryAlgorithm::to_XML() const
    root_element->LinkEndChild(element);
 
    buffer.str("");
-   buffer << maximum_selection_loss_decreases;
+   buffer << maximum_selection_error_decreases;
 
    text = document->NewText(buffer.str().c_str());
    element->LinkEndChild(text);
@@ -3688,7 +3381,7 @@ tinyxml2::XMLDocument* EvolutionaryAlgorithm::to_XML() const
    root_element->LinkEndChild(element);
 
    buffer.str("");
-   buffer << reserve_selection_loss_history;
+   buffer << reserve_selection_error_history;
 
    text = document->NewText(buffer.str().c_str());
    element->LinkEndChild(text);
@@ -3696,8 +3389,6 @@ tinyxml2::XMLDocument* EvolutionaryAlgorithm::to_XML() const
    return(document);
 }
 
-
-// void write_XML(tinyxml2::XMLPrinter&) const method
 
 /// Serializes the evolutionary algorithm object into a XML document of the TinyXML library without keep the DOM tree in memory.
 /// See the OpenNN manual for more information about the format of this document.
@@ -3841,7 +3532,7 @@ void EvolutionaryAlgorithm::write_XML(tinyxml2::XMLPrinter& file_stream) const
     file_stream.OpenElement("MaximumSelectionLossDecreases");
 
     buffer.str("");
-    buffer << maximum_selection_loss_decreases;
+    buffer << maximum_selection_error_decreases;
 
     file_stream.PushText(buffer.str().c_str());
 
@@ -3940,7 +3631,7 @@ void EvolutionaryAlgorithm::write_XML(tinyxml2::XMLPrinter& file_stream) const
     file_stream.OpenElement("ReserveSelectionLossHistory");
 
     buffer.str("");
-    buffer << reserve_selection_loss_history;
+    buffer << reserve_selection_error_history;
 
     file_stream.PushText(buffer.str().c_str());
 
@@ -3950,7 +3641,6 @@ void EvolutionaryAlgorithm::write_XML(tinyxml2::XMLPrinter& file_stream) const
     file_stream.CloseElement();
 }
 
-// void from_XML(const tinyxml2::XMLDocument&) method
 
 /// Loads a evolutionary algorithm object from a XML document.
 /// Please mind about the file format, wich is specified in the User's Guide. 
@@ -3966,7 +3656,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        buffer << "OpenNN Exception: EvolutionaryAlgorithm class.\n"
               << "void from_XML(const tinyxml2::XMLDocument&) method.\n"
-              << "Evolutionary algorithm element is NULL.\n";
+              << "Evolutionary algorithm element is nullptr.\n";
 
        throw logic_error(buffer.str());
    }
@@ -4010,7 +3700,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4029,7 +3719,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4048,7 +3738,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4067,7 +3757,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4078,7 +3768,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const size_t new_elitism_size = atoi(element->GetText());
+          const size_t new_elitism_size = static_cast<size_t>(atoi(element->GetText()));
 
           try
           {
@@ -4086,7 +3776,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4105,7 +3795,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4124,7 +3814,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4143,7 +3833,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4162,7 +3852,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4181,7 +3871,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4200,7 +3890,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4219,7 +3909,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4230,15 +3920,15 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const size_t new_maximum_selection_loss_decreases = atoi(element->GetText());
+          const size_t new_maximum_selection_error_decreases = static_cast<size_t>(atoi(element->GetText()));
 
           try
           {
-             set_maximum_selection_loss_decreases(new_maximum_selection_loss_decreases);
+             set_maximum_selection_error_increases(new_maximum_selection_error_decreases);
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4249,7 +3939,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const size_t new_maximum_generations_number = atoi(element->GetText());
+          const size_t new_maximum_generations_number = static_cast<size_t>(atoi(element->GetText()));
 
           try
           {
@@ -4257,7 +3947,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4276,7 +3966,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
           }
           catch(const logic_error& e)
           {
-             cout << e.what() << endl;
+             cerr << e.what() << endl;
           }
        }
    }
@@ -4287,7 +3977,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const bool new_mean_norm_history =(atoi(element->GetText()) != 0);
+          const bool new_mean_norm_history = (atoi(element->GetText()) != 0);
           set_reserve_mean_norm_history(new_mean_norm_history);
        }
    }
@@ -4298,7 +3988,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const bool new_standard_deviation_norm_history =(atoi(element->GetText()) != 0);
+          const bool new_standard_deviation_norm_history = (atoi(element->GetText()) != 0);
           set_reserve_standard_deviation_norm_history(new_standard_deviation_norm_history);
        }
    }
@@ -4309,7 +3999,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const bool new_best_norm_history =(atoi(element->GetText()) != 0);
+          const bool new_best_norm_history = (atoi(element->GetText()) != 0);
           set_reserve_best_norm_history(new_best_norm_history);
        }
    }
@@ -4320,7 +4010,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const bool new_mean_loss_history =(atoi(element->GetText()) != 0);
+          const bool new_mean_loss_history = (atoi(element->GetText()) != 0);
           set_reserve_mean_loss_history(new_mean_loss_history);
        }
    }
@@ -4331,7 +4021,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const bool new_standard_deviation_loss_history =(atoi(element->GetText()) != 0);
+          const bool new_standard_deviation_loss_history = (atoi(element->GetText()) != 0);
           set_reserve_standard_deviation_loss_history(new_standard_deviation_loss_history);
        }
    }
@@ -4342,7 +4032,7 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const bool new_best_loss_history =(atoi(element->GetText()) != 0);
+          const bool new_best_loss_history = (atoi(element->GetText()) != 0);
           set_reserve_best_loss_history(new_best_loss_history);
        }
    }
@@ -4353,14 +4043,12 @@ void EvolutionaryAlgorithm::from_XML(const tinyxml2::XMLDocument& document)
 
        if(element)
        {
-          const bool new_selection_loss_history =(atoi(element->GetText()) != 0);
-          set_reserve_selection_loss_history(new_selection_loss_history);
+          const bool new_selection_error_history = (atoi(element->GetText()) != 0);
+          set_reserve_selection_error_history(new_selection_error_history);
        }
    }
 }
 
-
-// void initialize_random() method
 
 void EvolutionaryAlgorithm::initialize_random()
 {
@@ -4398,7 +4086,6 @@ void EvolutionaryAlgorithm::initialize_random()
 
          throw logic_error(buffer.str());
       }
-      break;
    }
 
     // Mutation method
@@ -4427,10 +4114,9 @@ void EvolutionaryAlgorithm::initialize_random()
 
          throw logic_error(buffer.str());
       }
-      break;
    }
 
-    const size_t new_population_size =(size_t)calculate_random_uniform(1.0, 11.0)*4;
+    const size_t new_population_size = static_cast<size_t>(calculate_random_uniform(1.0, 11.0)*4);
 
     set_population_size(new_population_size);
 }

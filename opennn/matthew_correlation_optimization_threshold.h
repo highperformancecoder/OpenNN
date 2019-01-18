@@ -112,6 +112,7 @@ public:
     void set_step(const double&);
 
     // Order selection methods
+
   /// ownership passed - use delete to destroy
     MatthewCorrelationOptimizationThresholdResults* perform_threshold_selection();
 
