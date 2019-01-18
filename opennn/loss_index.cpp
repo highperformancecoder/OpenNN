@@ -373,36 +373,31 @@ void LossIndex::check() const
 
   // Data set stuff
 
-  if(!data_set_pointer)
+  if(data_set_pointer)
   {
-     buffer << "OpenNN Exception: LossIndex class.\n"
-            << "void check() const method.\n"
-            << "Pointer to data set is nullptr.\n";
 
-     throw logic_error(buffer.str());
-  }
+    const Variables& variables = data_set_pointer->get_variables();
 
-  const Variables& variables = data_set_pointer->get_variables();
+    const size_t data_set_inputs_number = variables.get_inputs_number();
+    const size_t targets_number = variables.get_targets_number();
 
-  const size_t data_set_inputs_number = variables.get_inputs_number();
-  const size_t targets_number = variables.get_targets_number();
+    if(data_set_inputs_number != inputs_number)
+      {
+        buffer << "OpenNN Exception: LossIndex class.\n"
+               << "void check() const method.\n"
+               << "Number of inputs in neural network (" << inputs_number << ") must be equal to number of inputs in data set (" << data_set_inputs_number << ").\n";
+        
+        throw logic_error(buffer.str());
+      }
 
-  if(data_set_inputs_number != inputs_number)
-  {
-     buffer << "OpenNN Exception: LossIndex class.\n"
-            << "void check() const method.\n"
-            << "Number of inputs in neural network (" << inputs_number << ") must be equal to number of inputs in data set (" << data_set_inputs_number << ").\n";
+    if(outputs_number != targets_number)
+      {
+        buffer << "OpenNN Exception: LossIndex class.\n"
+               << "void check() const method.\n"
+               << "Number of outputs in neural network must be equal to number of targets in data set.\n";
 
-     throw logic_error(buffer.str());
-  }
-
-  if(outputs_number != targets_number)
-  {
-     buffer << "OpenNN Exception: LossIndex class.\n"
-            << "void check() const method.\n"
-            << "Number of outputs in neural network must be equal to number of targets in data set.\n";
-
-     throw logic_error(buffer.str());
+        throw logic_error(buffer.str());
+      }
   }
 }
 
