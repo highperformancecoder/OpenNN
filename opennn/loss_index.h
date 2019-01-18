@@ -164,11 +164,11 @@ public:
         {
              ostringstream buffer;
 
-             buffer << "OpenNN Exception: LossIndex class.\n"
+             cerr << "OpenNN Exception: LossIndex class.\n"
                     << "DataSet* get_data_set_pointer() const method.\n"
                     << "DataSet pointer is nullptr.\n";
 
-             throw logic_error(buffer.str());
+             //throw logic_error(buffer.str());
         }
 
         #endif

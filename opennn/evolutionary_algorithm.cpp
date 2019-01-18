@@ -1792,7 +1792,7 @@ void EvolutionaryAlgorithm::evaluate_population()
 
    // Neural network
 
-   const Vector<size_t> training_indices = loss_index_pointer->get_data_set_pointer()->get_instances().get_training_indices();
+   //   const Vector<size_t> training_indices = loss_index_pointer->get_data_set_pointer()->get_instances().get_training_indices();
 
    const NeuralNetwork* neural_network_pointer = loss_index_pointer->get_neural_network_pointer();
 
@@ -2609,12 +2609,14 @@ EvolutionaryAlgorithm::EvolutionaryAlgorithmResults* EvolutionaryAlgorithm::perf
    }
 
    // Data set stuff
-
+   size_t selection_instances_number=0;
+   
    DataSet* data_set_pointer = loss_index_pointer->get_data_set_pointer();
-
-   const Instances& instances = data_set_pointer->get_instances();
-
-   const size_t selection_instances_number = instances.get_selection_instances_number();
+   if (data_set_pointer)
+     {
+       const Instances& instances = data_set_pointer->get_instances();
+       selection_instances_number = instances.get_selection_instances_number();
+     }
 
    EvolutionaryAlgorithmResults* results_pointer = new EvolutionaryAlgorithmResults(this);
 
